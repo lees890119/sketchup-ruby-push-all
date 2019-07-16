@@ -1,3 +1,8 @@
+# PUSHALL Pushing all selected faces to a specified depth. 
+#	The module is used to push all selected faces to a depth specified by the user.
+#	The resulting geometry will be grouped and transfered into solid objects.
+
+#
 # Copyright 2019 Wei-Yu Lee
 # Licensed under the MIT license
 

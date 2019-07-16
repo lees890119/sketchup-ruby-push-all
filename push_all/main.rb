@@ -1,12 +1,10 @@
+# PUSHALL Pushing all selected faces to a specified depth. 
+#	The module is used to push all selected faces to a depth specified by the user.
+#	The resulting geometry will be grouped and transfered into solid objects.
+
+#
 # Copyright 2019 Wei-Yu Lee
 # Licensed under the MIT license
-
-# PUSHALL Pushing all selected faces to a specified depth. 
-# 	PUSHALL(DEPTH) Pushes all selected faces to a DEPTH in [mm].
-#	
-#	* This function also clears the inner faces of the model
-#	  and group them based on individual solids.
-#
 
 require 'sketchup.rb'
 
