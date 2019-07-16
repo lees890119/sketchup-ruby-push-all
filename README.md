@@ -1,2 +1,2 @@
-# sketchup-ruby-push-all
+# Sketchup plugin: Push All
 A Ruby based plugin for Sketchup for pushing all the selected surfaces and transferring the result to solid.
