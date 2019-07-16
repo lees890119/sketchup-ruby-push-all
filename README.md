@@ -10,6 +10,10 @@ To get started, you need to have a desktop version of Sketchup installed.
 
 Download the [push_all.rbz](./push_all.rbz) to a local repository, then install the file via **Sketchup UI > Window > Extension manager > Install extension**. The path for installing the extension may differ base on the current version of Sketchup.
 
+## Note
+
+The extension is built for specified use thus only works on pushing the surfaces in y-direction. However, it can be easily extended to an arbitrary surfaces.
+
 ## Built With
 
 * [Sketchup](https://www.sketchup.com/) - The 3D modeling software.
