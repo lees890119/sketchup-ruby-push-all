@@ -50,7 +50,8 @@ module AutoTool
 			
 			ent.erase_entities removeFace
 			
-			isolateEdge = allEdge.find_all {|x| x.faces.length == 0}
+			activeEdge = allEdge.find_all {|x| !x.deleted?}
+			isolateEdge = activeEdge.find_all {|x| x.faces.length == 0}
 			removeEdge = isolateEdge-curSel
 			edgeFlag = isolateEdge.length == removeEdge.length
 			
