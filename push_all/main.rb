@@ -18,8 +18,8 @@ module AutoTool
 			curSel = *(0..mod.selection.length-1).map {|x| mod.selection[x]}
 			curSel = curSel.find_all {|x| (x.instance_of? Sketchup::Face or x.instance_of? Sketchup::Edge)}
 			
-			allSel = curSel.map{|x| x.all_connected}.flatten.uniq
-			allFace = allSel.find_all {|x| x.instance_of? Sketchup::Face}
+			curSel = curSel.map{|x| x.all_connected}.flatten.uniq
+			allFace = curSel.find_all {|x| x.instance_of? Sketchup::Face}
 
 			normalVector = Geom::Vector3d.new(0,1,0)
 			allFace.each do |currentFace|
@@ -45,12 +45,17 @@ module AutoTool
 			
 			redundantFace = redundantEdge.map {|x| x.faces}.flatten			
 			redundantFace = redundantFace.find_all {|x| !x.normal.parallel?(normalVector)}
+			removeFace = redundantFace-curSel
+			faceFlag = redundantFace.length == removeFace.length
 			
-			ent.erase_entities redundantFace
+			ent.erase_entities removeFace
 			
 			isolateEdge = allEdge.find_all {|x| x.faces.length == 0}
+			removeEdge = isolateEdge-curSel
+			edgeFlag = isolateEdge.length == removeEdge.length
 			
-			ent.erase_entities isolateEdge
+			ent.erase_entities removeEdge
+			flag = faceFlag && edgeFlag
 		end
 
 		# Function for grouping all the models.
@@ -88,10 +93,11 @@ module AutoTool
 
 					mod.start_operation('PushAll', true)
 				
-					curSel = self.pushAll(depth[0].to_f)
-					self.clearInnerFace(curSel)
-					count = self.groupAll(curSel)
-					UI.messagebox("Number of solid objects created: #{count[0]}\nNumber of Non-solid objects created: #{count[1]}")
+					allSel = self.pushAll(depth[0].to_f)
+					flag = self.clearInnerFace(allSel)
+					count = self.groupAll(allSel)
+					
+					UI.messagebox("Number of solid objects created: #{count[0]}\nNumber of Non-solid objects created: #{count[1]}\nError detected: #{!flag}")
 				ensure		
 					mod.commit_operation
 				end
